@@ -13,14 +13,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct node 
-{
+// Définition de la structure "node" pour une liste chaînée
+struct node {
 	int value;
 	int step;
 	struct node* next;
 };
 typedef struct node node_t;
 
+// Fonction pour créer un nouveau nœud de liste chaînée avec une valeur donnée
 node_t *create_new_node(int value)
 {
 	node_t *result = malloc(sizeof(node_t));
@@ -30,6 +31,7 @@ node_t *create_new_node(int value)
 	return result;
 }
 
+// Fonction pour insérer un nœud au début de la liste chaînée
 node_t *insert_from_beg(node_t **head, node_t *node_to_insert)
 {
 	node_to_insert->next = *head;
@@ -37,6 +39,7 @@ node_t *insert_from_beg(node_t **head, node_t *node_to_insert)
 	return node_to_insert;
 }
 
+// Fonction pour trouver un nœud avec une valeur donnée dans la liste chaînée
 node_t *find_node(node_t *head, int value)
 {
 	node_t *temp = head; 
@@ -49,6 +52,7 @@ node_t *find_node(node_t *head, int value)
 	return NULL;
 }
 
+// Fonction pour afficher les éléments de la liste chaînée avec leurs étapes
 void printflist(node_t *head)
 {
 	int i = 0;
@@ -56,13 +60,14 @@ void printflist(node_t *head)
 	while(temp != NULL)
 	{
 		temp->step = i;
-		printf("node :%d: -  value :%d:\n",temp->step, temp->value);
+		printf("node :%d: -  value :%d:\n", temp->step, temp->value);
 		temp = temp->next;
 		i++;
 	}
 	printf("\n");
 }
 
+// Fonction pour insérer un nœud après un nœud donné
 void insert_from_end(node_t *node_to_insert, node_t* newnode)
 {
 	newnode->next = node_to_insert->next;
@@ -94,5 +99,4 @@ int main(void)
 	printflist(head);
 
 	return 0;
-
 }

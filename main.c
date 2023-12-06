@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <stdlib.h>
 // Définition de la structure "node" pour une liste chaînée
 struct node {
 	int value;
@@ -68,31 +68,55 @@ void printflist(node_t *head)
 }
 
 // Fonction pour insérer un nœud après un nœud donné
-void insert_from_end(node_t *node_to_insert, node_t* newnode)
+void insert_from_end(node_t **head, node_t* newnode)
 {
-	newnode->next = node_to_insert->next;
-	node_to_insert->next = newnode;
+    if(*head == NULL)
+    {
+        *head = newnode;
+    }
+    else 
+    {
+        node_t *current = *head;
+        while(current->next != NULL)
+        {
+            current = current->next;
+        }
+        current->next = newnode;
+    }
 }
 
-int main(void)
+void append_node(node_t *current, int value)
+{
+    node_t *newnode = create_new_node(value);
+    newnode->next = current->next;
+    current->next = newnode;
+
+}
+
+int main(int arc, char **argv)
 {
 	node_t *head = NULL;
 	node_t *temp;
+    node_t *tofind;
 
 	int i = 0;
-	while (i < 100)
+	while (i < atoi(argv[1]))
 	{
 		temp = create_new_node(i);
-		insert_from_beg(&head, temp);
-		i++;
+        insert_from_beg(&head, temp);
+		//insert_from_end(&head,temp);
+        i++;
 	}
 
-	temp = find_node(head, 6);
-	insert_from_end(temp, create_new_node(9999));
-
-	temp = find_node(head, 16);
-	printf("find :%d:\n", temp->value);
-
+	tofind = find_node(head, atoi(argv[2]));
+    if (temp != NULL)
+    {
+        append_node(tofind, atoi(argv[3]));
+    }
+    else
+    {
+        printf("Erreur unfoudable node\n");
+    }
 	/* deplacer start point
 	head = head->next;*/
 
